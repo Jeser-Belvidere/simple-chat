@@ -16,7 +16,7 @@ export class MessagesService {
   ) {}
 
   async create(createMessageDto: CreateMessageDto) {
-    const { text, userId } = createMessageDto;
+    const { userId } = createMessageDto;
 
     const createdBy = await this.userRepository.findOne({
       where: { id: userId },

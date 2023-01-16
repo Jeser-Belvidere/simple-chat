@@ -3,10 +3,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToOne,
   ManyToOne,
   Index,
-  JoinColumn,
 } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 
