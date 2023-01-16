@@ -1,15 +1,27 @@
-import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
-@Entity()
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  Index,
+  OneToMany,
+} from 'typeorm';
+import { Message } from 'src/messages/entities/message.entity';
+@Entity('users')
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @Index()
+  @PrimaryGeneratedColumn('increment')
   id: string;
 
   @Column()
-  firstname: string;
+  firstName: string;
 
   @Column()
-  lastname: string;
+  lastName: string;
+
+  @OneToMany(() => Message, (Message) => Message.createdBy)
+  messages: Message[];
 
   @CreateDateColumn()
-  created_at: string;
+  createdAt: string;
 }

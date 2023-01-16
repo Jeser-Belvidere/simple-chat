@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
 import { TerminusModule } from '@nestjs/terminus';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { UsersModule } from '../users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-
+import { MessagesModule } from '../messages/messages.module';
 @Module({
   imports: [
     TerminusModule,
     HttpModule,
     UsersModule,
+    MessagesModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
@@ -22,7 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       autoLoadEntities: true,
-      synchronize: process.env.PRODUCTION_MODE === 'true' ? false : true,
+      synchronize: process.env.NODE_ENV === 'production' ? false : true,
     }),
   ],
   controllers: [AppController],

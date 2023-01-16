@@ -8,7 +8,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       //NOTE: returns 400 error if body not maches with DTO
-      // forbidNonWhitelisted: true,
+      forbidNonWhitelisted: true,
       transform: true,
     }),
   );
