@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { UsersModule } from '../users/users.module';
 import { MessagesModule } from '../messages/messages.module';
+import { AppGateway } from './app.gateway';
 @Module({
   imports: [
     TerminusModule,
@@ -27,5 +28,6 @@ import { MessagesModule } from '../messages/messages.module';
     }),
   ],
   controllers: [AppController],
+  providers: [AppGateway],
 })
 export class AppModule {}
