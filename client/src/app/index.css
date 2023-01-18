@@ -2,3 +2,18 @@
   padding: 0;
   margin: 0;
 }
+
+:root {
+  --primary: #0081b4;
+  --secondary: #fad3e7;
+  --accent: #726577;
+  --grey: #726577
+  font-family: "Roboto", serif;
+}
+
+.page-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
