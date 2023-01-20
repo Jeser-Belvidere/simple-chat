@@ -29,6 +29,7 @@ services:
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
       - NODE_ENV=${NODE_ENV}
+      - CLIENT_URI=${CLIENT_URI}
 
 networks:
   db-net:
