@@ -1,0 +1,75 @@
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.card_wrapper {
+  min-height: 200px;
+  min-width: 200px;
+  max-width: 600px;
+  max-height: 400px;
+}
+
+.card {
+  position: relative;
+  width: inherit;
+  height: inherit;
+  min-height: inherit;
+  min-width: inherit;
+  max-height: inherit;
+  max-width: inherit;
+  background: var(--dark);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 150%;
+  height: inherit;
+  min-height: inherit;
+  min-width: inherit;
+  transform-origin: bottom right;
+  background: linear-gradient(0deg, transparent, var(--accent), var(--accent));
+  animation: animate 6s linear infinite;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 150%;
+  height: inherit;
+  min-height: inherit;
+  min-width: inherit;
+  transform-origin: bottom right;
+  background: linear-gradient(0deg, transparent, var(--accent), var(--accent));
+  animation: animate 6s linear infinite;
+  animation-delay: -3s;
+}
+
+.content {
+  position: relative;
+  height: 99%;
+  min-height: inherit;
+  margin: 2px;
+  border-radius: inherit;
+  background: var(--secondary);
+  z-index: 10;
+}
+
+.actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 50px;
+}
