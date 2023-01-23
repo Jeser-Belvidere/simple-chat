@@ -1,0 +1,4 @@
+.separator {
+  background-color: var(--primary);
+  box-shadow: 0 0 10px 10px var(--primary);
+}
