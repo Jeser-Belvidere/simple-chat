@@ -1,0 +1,39 @@
+@keyframes beam {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent);
+  }
+
+  50% {
+    box-shadow: 0 0 3px 3px var(--accent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 var(--accent);
+  }
+}
+
+.button {
+  min-height: 20px;
+  min-width: 20px;
+  border: none;
+  border-radius: 2px;
+  padding: 10px;
+  transition: 0.5s;
+  background: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.button:hover {
+  background: var(--hover);
+}
+
+.button:active {
+  background: var(--hover);
+  animation: beam 0.5s linear 1;
+}
+
+.positive {
+}
+
+.negative {
+}

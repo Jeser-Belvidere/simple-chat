@@ -1,0 +1,6 @@
+.title {
+  color: var(--accent);
+  font-weight: 200;
+  text-align: center;
+  letter-spacing: 0.1rem;
+}
