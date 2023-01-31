@@ -1,19 +1,135 @@
+@font-face {
+  font-family: "NunitoSans";
+  src: url(../assets/fonts/NunitoSans-ExtraLight.ttf);
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NunitoSans";
+  src: url(../assets/fonts/NunitoSans-Regular.ttf);
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NunitoSans";
+  src: url(../assets/fonts/NunitoSans-Bold.ttf);
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NunitoSans", "sans-serif";
+  src: url(../assets/fonts/NunitoSans-Black.ttf);
+  font-weight: 900;
+  font-style: normal;
+}
+
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 :root {
-  --primary: #0081b4;
-  --secondary: #fad3e7;
-  --accent: #726577;
-  --grey: #726577
-  font-family: "Roboto", serif;
+  --primary: rgb(54, 55, 64);
+  --secondary: rgb(40, 41, 45);
+  --accent: rgb(69, 243, 255);
+  --hover: rgb(180, 246, 252);
+  --positive: rgb(50, 171, 80);
+  --negative: rgb(171, 50, 74);
+  --dark: rgb(28, 28, 28);
+  --light: rgb(255, 255, 255);
 }
 
-.page-centered {
+body {
+  background-color: var(--primary);
+  font-family: NunitoSans;
+  font-weight: 400;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.negative {
+  color: var(--negative);
+}
+
+.positive {
+  color: var(--positive);
+}
+
+.fullheight {
+  height: 100vh;
+}
+
+.all-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
   display: flex;
   flex-direction: column;
+}
+
+.items-center {
   align-items: center;
+}
+
+.justify-center {
   justify-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+
+.p-sm {
+  padding: 6px;
+}
+
+.p-md {
+  padding: 16px;
+}
+
+.p-lg {
+  padding: 24px;
+}
+
+.m-sm {
+  margin: 6px;
+}
+
+.m-md {
+  margin: 16px;
+}
+
+.m-lg {
+  margin: 24px;
+}
+
+.mt-sm {
+  margin-top: 6px;
+}
+
+.mt-md {
+  margin-top: 16px;
+}
+
+.mt-lg {
+  margin-top: 24px;
 }

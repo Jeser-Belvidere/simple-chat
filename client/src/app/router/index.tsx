@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { AuthPage } from 'pages/Auth'
 import { NotFoundPage } from 'pages/NotFound'
+import AuthPage from 'pages/Auth'
 
 const Router = createBrowserRouter([
 	{
