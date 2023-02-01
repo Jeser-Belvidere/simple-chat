@@ -9,15 +9,21 @@ import {
 import { Message } from 'src/messages/entities/message.entity';
 @Entity('users')
 export class User {
-  @Index()
   @PrimaryGeneratedColumn('increment')
   id: string;
 
-  @Column()
-  firstName: string;
+  @Index()
+  @Column({ unique: true })
+  username: string;
+
+  @Column({ nullable: true, default: null })
+  firstname: string;
+
+  @Column({ nullable: true, default: null })
+  lastname: string;
 
   @Column()
-  lastName: string;
+  hash: string;
 
   @OneToMany(() => Message, (Message) => Message.createdBy)
   messages: Message[];

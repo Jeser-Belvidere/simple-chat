@@ -18,6 +18,12 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@users/*": ["./src/users/*"],
+      "@auth/*": ["src/auth/*"],
+      "@messages/*": ["./src/messages/*"]
+    }
   }
 }

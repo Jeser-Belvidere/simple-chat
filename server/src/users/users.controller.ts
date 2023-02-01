@@ -29,6 +29,7 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  //TODO: add username query for search
   @Get()
   findAll(@Query() paginationQuery: paginationObject) {
     const { limit, offset } = paginationQuery;
@@ -37,7 +38,7 @@ export class UsersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+    return this.usersService.findOne({ id });
   }
 
   @Patch(':id')

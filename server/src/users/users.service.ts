@@ -1,10 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from '@users/entities/user.entity';
+import { CreateUserDto } from '@users/dto/create-user.dto';
+import { UpdateUserDto } from '@users/dto/update-user.dto';
+import { ViewUserDto } from '@users/dto/view-user.dto';
 import { Repository } from 'typeorm';
+import { FindOneParams } from '@users/types';
 
+import * as bcrypt from 'bcrypt';
+
+const SALT = parseInt(process.env.SALT || '10', 10);
 @Injectable()
 export class UsersService {
   constructor(
@@ -16,16 +21,23 @@ export class UsersService {
     return await this.userRepository.find();
   }
 
-  async findOne(id: string) {
-    const user = await this.userRepository.find({ where: { id: id } });
+  async findOne({ username, id }: FindOneParams): Promise<User | never> {
+    const user = await this.userRepository.findOne({
+      where: username ? { username: username } : { id: id },
+    });
 
-    if (!user) throw new NotFoundException(`User #${id} not found`);
-
+    if (!user) throw new NotFoundException(`User #${username} not found`);
     return user;
   }
 
-  create(createUserDto: CreateUserDto) {
-    const user = this.userRepository.create(createUserDto);
+  async create(createUserDto: CreateUserDto) {
+    const hash = await bcrypt.hash(createUserDto.password, SALT);
+
+    const user = this.userRepository.create({
+      username: createUserDto.username,
+      hash: hash,
+    });
+
     return this.userRepository.save(user);
   }
 
@@ -41,7 +53,7 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    const user = await this.findOne(id);
+    const user = await this.findOne({ id });
     return this.userRepository.remove(user);
   }
 }
