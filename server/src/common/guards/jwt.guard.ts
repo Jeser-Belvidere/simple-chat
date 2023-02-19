@@ -2,18 +2,19 @@ import { Injectable, CanActivate, ExecutionContext, BadRequestException } from '
 import { Reflector } from '@nestjs/core';
 import { verify } from 'jsonwebtoken';
 import { Observable } from 'rxjs';
-import { IS_PRIVATE_KEY } from '@/common/decorators/public.decorator';
-
-//TODO: add from .env
-const JWT_SECRET = 'process.env.JWT_SECRET';
+import { IS_PUBLIC_KEY } from '@/common/decorators/public.decorator';
+import { ENV_ENUM } from '../types/env.types';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  private reflector = new Reflector();
+  private readonly configService = new ConfigService();
+
   canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
     const req = context.switchToHttp().getRequest();
 
-    const isPublic = this.reflector.get<string>(IS_PRIVATE_KEY, context.getHandler());
+    const isPublic = this.reflector.get<string>(IS_PUBLIC_KEY, context.getHandler());
 
     if (isPublic) return true;
 
@@ -22,8 +23,10 @@ export class AuthGuard implements CanActivate {
 
     const token = req.headers.authorization.split(' ')[1];
 
+    const SECRET = this.configService.get<string>(ENV_ENUM.JWT_SECRET) as string;
+
     try {
-      verify(token, JWT_SECRET);
+      verify(token, SECRET);
       return true;
     } catch {
       return false;
