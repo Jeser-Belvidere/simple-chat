@@ -1,20 +1,21 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '@users/entities/user.entity';
 import { CreateUserDto } from '@users/dto/create-user.dto';
 import { UpdateUserDto } from '@users/dto/update-user.dto';
 import { ViewUserDto } from '@users/dto/view-user.dto';
+import { ConfigService } from '@nestjs/config';
+import { ENV_ENUM } from '@/common/types/env.types';
 import { Repository } from 'typeorm';
 import { FindOneParams } from '@users/types';
-
 import * as bcrypt from 'bcrypt';
 
-const SALT = parseInt(process.env.SALT || '10', 10);
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly configService: ConfigService,
   ) {}
 
   async findAll() {
@@ -27,17 +28,28 @@ export class UsersService {
     });
 
     if (!user) throw new NotFoundException(`User #${username} not found`);
+
     return user;
   }
 
   async create(createUserDto: CreateUserDto) {
-    const hash = await bcrypt.hash(createUserDto.password, SALT);
+    const SALT = this.configService.get<string>(ENV_ENUM.SALT) as string;
+
+    const { username, password } = createUserDto;
+
+    const hash = await bcrypt.hash(password, +SALT);
+
+    if (
+      await this.userRepository.findOne({
+        where: { username: username },
+      })
+    )
+      throw new BadRequestException('User has already exist');
 
     const user = this.userRepository.create({
-      username: createUserDto.username,
+      username: username,
       hash: hash,
     });
-
     return this.userRepository.save(user);
   }
 
