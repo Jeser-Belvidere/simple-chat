@@ -1,0 +1,5 @@
+.error {
+  color: var(--negative);
+  transition: 0.5s;
+  letter-spacing: 0.05em;
+}
