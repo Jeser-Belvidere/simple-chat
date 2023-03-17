@@ -1,16 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { NotFoundPage } from 'pages/NotFound'
-import AuthPage from 'pages/Auth'
+import { routes } from './routes'
 
-const Router = createBrowserRouter([
-	{
-		path: '/auth',
-		element: <AuthPage />,
-	},
-	{
-		path: '/*',
-		element: <NotFoundPage />,
-	},
-])
+const Router = createBrowserRouter(routes)
 
 export default Router
